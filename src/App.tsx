@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./App.css";
+import List from "./components/List"
 
 interface IState {
   people: {
@@ -20,6 +21,7 @@ function App() {
   return (
     <div className="App">
       <h1>People Invited To My Party</h1>
+      <List />
     </div>
   );
 }
