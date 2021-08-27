@@ -14,14 +14,10 @@ interface IState {
 function App() {
   const [people, setPeople] = useState<IState["people"]>([]);
 
-  people.map((person) => {
-    return person.note;
-  });
-
   return (
     <div className="App">
       <h1>People Invited To My Party</h1>
-      <List />
+      <List people={people}/>
     </div>
   );
 }
