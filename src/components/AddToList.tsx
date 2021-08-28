@@ -1,6 +1,12 @@
-import React, { useState } from "react";
 
-const AddToList = (): JSX.Element => {
+import React, { useState } from "react";
+import { IState as Props } from "../App";
+interface IProps {
+  people: Props["people"];
+  setPeople: React.Dispatch<React.SetStateAction<Props["people"]>>;
+}
+
+const AddToList: React.FC<IProps> = ({ people, setPeople }): JSX.Element => {
   const [input, setInput] = useState({
     name: "",
     age: "",
@@ -8,13 +14,29 @@ const AddToList = (): JSX.Element => {
     img: "",
   });
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ): void => {
     setInput({
       ...input,
       [event.target.name]: event.target.value,
     });
   };
 
+  const handleClick = (): void => {
+    if (!input.name || !input.age || !input.img) {
+      return;
+    }
+    setPeople([
+      ...people,
+      {
+        name: input.name,
+        age: parseInt(input.age),
+        url: input.img,
+        note: input.note,
+      },
+    ]);
+  };
   return (
     <div className="AddToList">
       <input
@@ -26,7 +48,7 @@ const AddToList = (): JSX.Element => {
         name="name"
       ></input>
       <input
-        type="text"
+        type="number"
         placeholder="Age"
         className="AddToList-input"
         value={input.age}
@@ -41,13 +63,16 @@ const AddToList = (): JSX.Element => {
         onChange={handleChange}
         name="img"
       ></input>
-      <input
-        type="text"
+      <textarea
         placeholder="Notes"
         className="AddToList-input"
         value={input.note}
         onChange={handleChange}
-      ></input>
+        name="note"
+      />
+      <button className="AddToList-btn" onClick={handleClick}>
+        Add to list
+      </button>
     </div>
   );
 };
