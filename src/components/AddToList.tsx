@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { IState as Props } from "../App";
 interface IProps {
@@ -36,7 +35,14 @@ const AddToList: React.FC<IProps> = ({ people, setPeople }): JSX.Element => {
         note: input.note,
       },
     ]);
+    setInput({
+      name: "",
+      age: "",
+      note: "",
+      img: "",
+    });
   };
+
   return (
     <div className="AddToList">
       <input
